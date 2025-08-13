@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import arrow from '../assets/arrow.svg';
+import avatar from '../assets/Erion Ademi.jpg';
+import '../styles/index.css';
+
+const projects = [
+  { name: 'FileShare', url: 'https://github.com/Erion14/FileShare', description: 'File sharing project using IPFS, Next.js, and .NET for secure and decentralized storage.' },
+  { name: 'Java E-commerce Backend', url: 'https://github.com/Erion14/Java-E-commerce-Backend', description: 'A backend for an e-commerce shop using Java and Object-Oriented principles.' },
+  { name: 'Copilot Code Context', url: 'https://github.com/Erion14/Copilot-Code-Context', description: 'A VS Code extension to send clipboard code to GitHub Copilot as file context.' },
+  { name: 'Twitter Unfollow Extension', url: 'https://github.com/Erion14/twitter-unfollow', description: 'A Chrome extension to manage Twitter followings.' },
+  { name: 'LeetCode', url: 'https://github.com/Erion14/LeetCode', description: 'A collection of my LeetCode solutions.' },
+];
+const topProjects = projects.slice(0, 3);
+---
+
+<Layout>
+  <main>
+    <div class="container">
+      <header>
+        <img src={avatar.src} alt="Erion Ademi" class="avatar" />
+        <div class="header-text">
+          <h1>Erion Ademi</h1>
+          <p>Software Developer</p>
+        </div>
+      </header>
+
+      <section class="links-section">
+        <h2>Links</h2>
+        <div class="links-grid">
+          <a href="https://github.com/Erion14">GitHub <img src={arrow.src} alt="arrow icon" /></a>
+          <a href="https://www.linkedin.com/in/erion-ademi-b730a1230/">LinkedIn <img src={arrow.src} alt="arrow icon" /></a>
+          <a href="https://drive.google.com/file/d/1-0000000000000000000000000000000000000000/view?usp=sharing">CV <img src={arrow.src} alt="arrow icon" /></a>
+          <span>erionn.ademi@gmail.com</span>
+        </div>
+      </section>
+
+      <section class="about-section">
+        <h2>About me</h2>
+        <p>
+          I'm obsessed with creating and developing software. You'll often find me exploring apps and tinkering with code.
+        </p>
+        <p>
+          I'm now at Quantix, crafting web applications designed to be functional and practical for users.
+        </p>
+        <p>
+          I'm currently studying Computer Information and Technologies at RITK. I'm always learning, whether it's through building projects or reading.
+        </p>
+        <p>
+          Check out my <a href="/projects"><span>projects</span></a> to learn more about what I'm working on.
+        </p>
+      </section>
+
+      <section class="projects-section">
+        <h2>Projects</h2>
+        <div class="projects-list">
+          {topProjects.map(project => (
+            <a href={project.url} class="project-entry" target="_blank" rel="noopener noreferrer">
+              <div class="project-info">
+                <span class="project-name">{project.name}</span>
+                <p class="project-description">{project.description}</p>
+              </div>
+              <img src={arrow.src} alt="arrow icon" />
+            </a>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>

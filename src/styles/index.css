@@ -1,0 +1,121 @@
+main {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+.container {
+  width: 40%;
+  margin: 0 auto;
+}
+header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 1rem;
+  object-fit: cover;
+}
+.header-text h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+.header-text p {
+  margin: 0;
+  color: #a0a0a0;
+}
+h2 {
+  font-size: 1rem;
+  color: #a0a0a0;
+  margin-bottom: 1rem;
+  font-weight: normal;
+}
+.links-section {
+  margin-bottom: 3rem;
+}
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem 1rem;
+}
+.links-grid a, .links-grid span {
+  color: #f0f0f0;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.links-grid a:hover {
+  color: #ffffff;
+}
+.links-grid a img {
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+.links-grid a:hover img {
+  transform: translateX(2px);
+}
+.about-section, .projects-section {
+  margin-bottom: 3rem;
+}
+.about-section p {
+  color: #d0d0d0;
+  line-height: 1.6;
+  margin-bottom: 1em;
+}
+.about-section a {
+  color: #f0f0f0;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+.about-section a span {
+    display: inline-block;
+    transition: transform 0.2s ease-in-out;
+    padding-bottom: 2px;
+}
+.about-section a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #f0f0f0;
+}
+.about-section a:hover span {
+    transform: translateY(-3px);
+}
+.projects-list .project-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    margin: 0 -1.5rem;
+    color: #f0f0f0;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+}
+.projects-list .project-entry:first-child {
+    border-top: none;
+}
+.projects-list .project-entry:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.project-info .project-name {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+.project-info .project-description {
+    color: #a0a0a0;
+    margin: 0;
+    font-size: 0.9rem;
+}
+.project-entry img {
+    transition: transform 0.2s ease-in-out;
+}
+.project-entry:hover img {
+    transform: translateX(2px);
+}
