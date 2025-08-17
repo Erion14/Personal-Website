@@ -2,15 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import arrow from '../assets/arrow.svg';
 import avatar from '../assets/Erion Ademi.jpg';
+import { projects } from '../data/projects';
 import '../styles/index.css';
 
-const projects = [
-  { name: 'FileShare', url: 'https://github.com/Erion14/FileShare', description: 'File sharing project using IPFS, Next.js, and .NET for secure and decentralized storage.' },
-  { name: 'Java E-commerce Backend', url: 'https://github.com/Erion14/Java-E-commerce-Backend', description: 'A backend for an e-commerce shop using Java and Object-Oriented principles.' },
-  { name: 'Copilot Code Context', url: 'https://github.com/Erion14/Copilot-Code-Context', description: 'A VS Code extension to send clipboard code to GitHub Copilot as file context.' },
-  { name: 'Twitter Unfollow Extension', url: 'https://github.com/Erion14/twitter-unfollow', description: 'A Chrome extension to manage Twitter followings.' },
-  { name: 'LeetCode', url: 'https://github.com/Erion14/LeetCode', description: 'A collection of my LeetCode solutions.' },
-];
 const topProjects = projects.slice(0, 3);
 ---
 
@@ -30,7 +24,7 @@ const topProjects = projects.slice(0, 3);
         <div class="links-grid">
           <a href="https://github.com/Erion14">GitHub <img src={arrow.src} alt="arrow icon" /></a>
           <a href="https://www.linkedin.com/in/erion-ademi-b730a1230/">LinkedIn <img src={arrow.src} alt="arrow icon" /></a>
-          <a href="https://drive.google.com/file/d/1-0000000000000000000000000000000000000000/view?usp=sharing">CV <img src={arrow.src} alt="arrow icon" /></a>
+          <a href="https://www.erion.icu">CV <img src={arrow.src} alt="arrow icon" /></a>
           <span>erionn.ademi@gmail.com</span>
         </div>
       </section>
