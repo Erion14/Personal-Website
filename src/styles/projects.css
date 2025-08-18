@@ -46,3 +46,18 @@ h2 {
 .project-entry:hover img {
   transform: translateX(2px);
 }
+
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+  .projects-list .project-entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 0.75rem;
+    align-items: start;
+  }
+  .project-entry img {
+    justify-self: end;
+  }
+}

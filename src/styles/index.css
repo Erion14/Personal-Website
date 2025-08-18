@@ -119,3 +119,13 @@ h2 {
 .project-entry:hover img {
     transform: translateX(2px);
 }
+
+@media (max-width: 768px) {
+  .container {
+    width: 80%;
+  }
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
