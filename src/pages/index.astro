@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import arrow from '../assets/arrow.svg';
 import avatar from '../assets/Erion Ademi.jpg';
+import homeimage from '../assets/homeimage.png';
 import { projects } from '../data/projects';
 import '../styles/index.css';
 
@@ -58,6 +59,10 @@ const topProjects = projects.slice(0, 3);
             </a>
           ))}
         </div>
+      </section>
+
+      <section class="anime-section">
+        <img src={homeimage.src} alt="Favorite Anime" class="anime-image" />
       </section>
     </div>
   </main>
