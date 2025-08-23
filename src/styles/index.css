@@ -1,6 +1,6 @@
 main {
   padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-bottom: 8rem; /* Increased to prevent navbar overlay */
 }
 .container {
   width: 40%;
@@ -130,21 +130,25 @@ h2 {
   }
 }
 
-.anime-section {
-  margin-top: 2rem;
+.footer-section {
+  margin-top: 4rem;
   text-align: center;
-  padding: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.anime-image {
-  max-width: 80%;
-  height: auto;
-  transition: transform 0.3s ease-out;
-  will-change: transform;
+.footer-section p {
+  color: #a0a0a0;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
-.anime-image:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-out;
+.footer-section a {
+  color: #d0d0d0;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+  color: #f0f0f0;
 }

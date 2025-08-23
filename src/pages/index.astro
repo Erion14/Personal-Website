@@ -2,9 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import arrow from '../assets/arrow.svg';
 import avatar from '../assets/erion.jpg';
-import homeimage from '../assets/homeimage.png';
+import ParticleGenerator from '../components/ParticleGenerator.astro';
 import { projects } from '../data/projects';
 import '../styles/index.css';
+
 
 const topProjects = projects.slice(0, 3);
 ---
@@ -36,7 +37,7 @@ const topProjects = projects.slice(0, 3);
           I'm obsessed with creating and developing software. You'll often find me exploring apps and tinkering with code.
         </p>
         <p>
-          I'm now at Quantix, crafting web applications designed to be functional and practical for users.
+          I'm now at <a href="https://thequantix.com/" target="_blank" rel="noopener noreferrer"><span>Quantix</span></a>, crafting web applications designed to be functional and practical for users.
         </p>
         <p>
           I'm currently studying Computer Information and Technologies at RITK. I'm always learning, whether it's through building projects or reading.
@@ -60,10 +61,12 @@ const topProjects = projects.slice(0, 3);
           ))}
         </div>
       </section>
+      <ParticleGenerator />
 
-      <section class="anime-section">
-        <img src={homeimage.src} alt="Favorite Anime" class="anime-image" />
-      </section>
+      <footer class="footer-section">
+        <p>Website built using <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> • <a href="https://github.com/Erion14/Personal-Website" target="_blank" rel="noopener noreferrer">View source</a></p>
+      </footer>
+      
     </div>
   </main>
 </Layout>

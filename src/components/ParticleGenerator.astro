@@ -1,0 +1,146 @@
+---
+const particleId = `particle-canvas-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class="particle-container">
+  <canvas id={particleId}></canvas>
+</div>
+
+<style>
+  .particle-container {
+    width: 100%;
+    height: 120px;
+    margin-bottom: 2rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(40, 40, 40, 0.3) 0%, rgba(20, 20, 20, 0.2) 100%);
+    overflow: hidden;
+    position: relative;
+    backdrop-filter: blur(10px);
+  }
+  
+  #particle-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
+
+<script>
+  import * as THREE from 'three';
+
+  // Wait for DOM to be ready
+  function initParticles() {
+    const canvas = document.querySelector('.particle-container canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    const width = container.offsetWidth;
+    const height = container.offsetHeight;
+
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ 
+      canvas: canvas, 
+      alpha: true, 
+      antialias: true 
+    });
+    
+    renderer.setSize(width, height);
+    renderer.setClearColor(0x000000, 0);
+
+    // Particle system
+    const particleCount = 150;
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const velocities: Array<{x: number, y: number, z: number}> = [];
+    
+    // Initialize particles
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 15;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 6;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 3;
+      
+      velocities.push({
+        x: (Math.random() - 0.5) * 0.03,
+        y: (Math.random() - 0.5) * 0.02,
+        z: (Math.random() - 0.5) * 0.02
+      });
+    }
+    
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    
+    const particleMaterial = new THREE.PointsMaterial({
+      color: 0xf0f0f0,
+      size: 0.08,
+      transparent: true,
+      opacity: 0.9
+    });
+    
+    const particleSystem = new THREE.Points(particles, particleMaterial);
+    scene.add(particleSystem);
+
+    // Camera position
+    camera.position.z = 5;
+
+    // Animation loop
+    let time = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      time += 0.01;
+
+      const positions = particleSystem.geometry.attributes.position.array;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const i3 = i * 3;
+        
+        // Update positions
+        positions[i3] += velocities[i].x;
+        positions[i3 + 1] += velocities[i].y;
+        positions[i3 + 2] += velocities[i].z;
+        
+        // Boundary wrapping
+        if (positions[i3] > 7.5) positions[i3] = -7.5;
+        if (positions[i3] < -7.5) positions[i3] = 7.5;
+        if (positions[i3 + 1] > 3) positions[i3 + 1] = -3;
+        if (positions[i3 + 1] < -3) positions[i3 + 1] = 3;
+        
+        // Add subtle spinning motion
+        positions[i3] += Math.sin(time + i * 0.1) * 0.005;
+        positions[i3 + 1] += Math.cos(time + i * 0.15) * 0.003;
+      }
+      
+      particleSystem.geometry.attributes.position.needsUpdate = true;
+      particleSystem.rotation.z += 0.001;
+      
+      renderer.render(scene, camera);
+    }
+    
+    animate();
+
+    // Handle resize
+    window.addEventListener('resize', () => {
+      if (!container) return;
+      
+      const newWidth = container.offsetWidth;
+      const newHeight = container.offsetHeight;
+      
+      camera.aspect = newWidth / newHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(newWidth, newHeight);
+    });
+  }
+
+  // Initialize when DOM is ready
+  function delayedInit() {
+    setTimeout(initParticles, 50); // Small delay to ensure DOM is ready
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', delayedInit);
+  } else {
+    delayedInit();
+  }
+</script>

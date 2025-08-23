@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import arrow from '../assets/arrow.svg';
 import { projects } from '../data/projects';
 import '../styles/projects.css';
+import homeimage from '../assets/homeimage.png';
 ---
 
 <Layout>
@@ -22,6 +23,9 @@ import '../styles/projects.css';
             </a>
           ))}
         </div>
+      </section>
+            <section class="anime-section">
+        <img src={homeimage.src} alt="Favorite Anime" class="anime-image" />
       </section>
     </div>
   </main>
