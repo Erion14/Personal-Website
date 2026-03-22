@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import arrow from '../assets/arrow.svg';
 import { projects } from '../data/projects';
 import '../styles/projects.css';
 import homeimage from '../assets/homeimage.png';
@@ -19,7 +18,6 @@ import homeimage from '../assets/homeimage.png';
                 <span class="project-name">{project.name}</span>
                 <p class="project-description">{project.description}</p>
               </div>
-              <img src={arrow.src} alt="arrow icon" />
             </a>
           ))}
         </div>

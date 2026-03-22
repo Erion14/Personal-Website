@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import arrow from '../assets/arrow.svg';
 import avatar from '../assets/erion.jpg';
 import ParticleGenerator from '../components/ParticleGenerator.astro';
 import { projects } from '../data/projects';
@@ -24,9 +23,9 @@ const topProjects = projects.slice(0, 3);
       <section class="links-section">
         <h2>Links</h2>
         <div class="links-grid">
-          <a href="https://github.com/Erion14">GitHub <img src={arrow.src} alt="arrow icon" /></a>
-          <a href="https://www.linkedin.com/in/erion-ademi-b730a1230/">LinkedIn <img src={arrow.src} alt="arrow icon" /></a>
-          <a href="https://www.erion.icu">CV <img src={arrow.src} alt="arrow icon" /></a>
+          <a href="https://github.com/Erion14">GitHub</a>
+          <a href="https://www.linkedin.com/in/erion-ademi-b730a1230/">LinkedIn</a>
+          <a href="/Erion_Ademi_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
           <span>erionn.ademi@gmail.com</span>
         </div>
       </section>
@@ -59,7 +58,6 @@ const topProjects = projects.slice(0, 3);
                 <span class="project-name">{project.name}</span>
                 <p class="project-description">{project.description}</p>
               </div>
-              <img src={arrow.src} alt="arrow icon" />
             </a>
           ))}
         </div>

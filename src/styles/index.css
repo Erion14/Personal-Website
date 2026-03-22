@@ -49,13 +49,6 @@ h2 {
 .links-grid a:hover {
   color: #ffffff;
 }
-.links-grid a img {
-  margin-left: 0.5rem;
-  transition: transform 0.2s ease-in-out;
-}
-.links-grid a:hover img {
-  transform: translateX(2px);
-}
 .about-section, .projects-section {
   margin-bottom: 3rem;
 }
@@ -112,12 +105,6 @@ h2 {
     color: #a0a0a0;
     margin: 0;
     font-size: 0.9rem;
-}
-.project-entry img {
-    transition: transform 0.2s ease-in-out;
-}
-.project-entry:hover img {
-    transform: translateX(2px);
 }
 
 @media (max-width: 768px) {
