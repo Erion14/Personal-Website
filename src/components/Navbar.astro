@@ -2,14 +2,17 @@
 import homeIcon from '../assets/home.svg';
 import computerIcon from '../assets/computer.svg';
 import '../styles/navbar.css';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const ariaCurrent = (href: string) => (href === currentPath ? 'page' : undefined);
 ---
 
 <nav class="navbar">
-  <a href="/" class="nav-link">
+  <a href="/" class="nav-link" aria-current={ariaCurrent('/')}>
     <img src={homeIcon.src} alt="Home" />
     <span class="link-text">Home</span>
   </a>
-  <a href="/projects" class="nav-link">
+  <a href="/projects" class="nav-link" aria-current={ariaCurrent('/projects')}>
     <img src={computerIcon.src} alt="Projects" />
     <span class="link-text">Projects</span>
   </a>

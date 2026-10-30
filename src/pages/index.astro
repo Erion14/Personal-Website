@@ -1,73 +1,125 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import avatar from '../assets/erion.jpg';
-import ParticleGenerator from '../components/ParticleGenerator.astro';
+import DotField from '../components/DotField.astro';
+import MetaBar from '../components/MetaBar.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
 import { projects } from '../data/projects';
+import { education, experience, stack } from '../data/profile';
 import '../styles/index.css';
 
-
-const topProjects = projects.slice(0, 3);
+const topProjects = projects.slice(0, 4);
+const email = 'erionn.ademi@gmail.com';
 ---
 
 <Layout>
   <main>
     <div class="container">
-      <header>
-        <img src={avatar.src} alt="Erion Ademi" class="avatar" />
-        <div class="header-text">
-          <h1>Erion Ademi</h1>
-          <p>Software Developer</p>
-        </div>
+      <MetaBar />
+
+      <header class="hero" data-reveal>
+        <DotField />
+        <h1 data-scramble>Erion Ademi</h1>
+        <p class="hero-role">Software Developer</p>
       </header>
 
-      <section class="links-section">
-        <h2>Links</h2>
-        <div class="links-grid">
-          <a href="https://github.com/Erion14">GitHub</a>
-          <a href="https://www.linkedin.com/in/erion-ademi-b730a1230/">LinkedIn</a>
-          <a href="/Erion_Ademi_CV.pdf" target="_blank" rel="noopener noreferrer">CV</a>
-          <span>erionn.ademi@gmail.com</span>
+      <nav class="links mono" aria-label="Contact" data-reveal>
+        <a href="https://github.com/Erion14" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow">↗</span></a>
+        <a href="https://www.linkedin.com/in/erion-ademi-b730a1230/" target="_blank" rel="noopener noreferrer">LinkedIn <span class="arrow">↗</span></a>
+        <a href="/Erion_Ademi_CV.pdf" target="_blank" rel="noopener noreferrer">CV <span class="arrow">↗</span></a>
+        <button type="button" class="copy-email" data-email={email} title="Copy email address">
+          <span class="copy-email-text">{email}</span>
+          <span class="copy-email-hint" aria-live="polite">[copy]</span>
+        </button>
+      </nav>
+
+      <section data-reveal>
+        <h2 class="section-label mono"><span class="accent">01</span>/<span data-scramble>About</span></h2>
+        <div class="about">
+          <p>
+            I'm a web developer from Prishtina. I build full-stack web apps, mostly with .NET on the backend
+            and React with TypeScript on the frontend.
+          </p>
+          <p>
+            The backend is where I spend most of my time: clean APIs, solid databases, and apps that stay fast as they grow.
+            Some of my side projects are in <a href="/projects">projects</a>.
+          </p>
         </div>
       </section>
 
-    <section class="about-section">
-      <h2>About me</h2>
-      <p>
-        I am a software developer who builds robust and scalable web applications.
-      </p>
-      <p>
-        My work focuses on full-stack development with a strong emphasis on backend architecture.
-      </p>
-      <p>
-       I use technologies like .NET Core and React to create highly functional systems that perform well under pressure.
-      </p>
-      <p>
-        I am studying Computer Information and Technologies at RITK.
-      </p>
-      <p>
-        Check out my <a href="/projects"><span>projects</span></a> to see what I am building.
-      </p>
-    </section>
-
-      <section class="projects-section">
-        <h2>Projects</h2>
-        <div class="projects-list">
-          {topProjects.map(project => (
-            <a href={project.url} class="project-entry" target="_blank" rel="noopener noreferrer">
-              <div class="project-info">
-                <span class="project-name">{project.name}</span>
-                <p class="project-description">{project.description}</p>
-              </div>
-            </a>
+      <section>
+        <h2 class="section-label mono" data-reveal><span class="accent">02</span>/<span data-scramble>Experience</span></h2>
+        <ol class="timeline">
+          {experience.map((job, index) => (
+            <li data-reveal>
+              <details open={index === 0}>
+                <summary>
+                  <span class="mono timeline-period">{job.period}</span>
+                  <span class="timeline-title">{job.role} <span class="timeline-company">@ {job.company}</span></span>
+                  <span class="mono timeline-toggle" aria-hidden="true"></span>
+                </summary>
+                <ul class="timeline-highlights">
+                  {job.highlights.map((highlight) => <li>{highlight}</li>)}
+                </ul>
+              </details>
+            </li>
           ))}
-        </div>
+          <li data-reveal>
+            <div class="timeline-static">
+              <span class="mono timeline-period">{education.period}</span>
+              <span class="timeline-title">{education.degree} <span class="timeline-company">@ {education.school}</span></span>
+              <span class="mono timeline-note">{education.note}</span>
+            </div>
+          </li>
+        </ol>
       </section>
-      <ParticleGenerator />
 
-      <footer class="footer-section">
-        <p>Website built using <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> • <a href="https://github.com/Erion14/Personal-Website" target="_blank" rel="noopener noreferrer">View source</a></p>
+      <section>
+        <h2 class="section-label mono" data-reveal><span class="accent">03</span>/<span data-scramble>Projects</span></h2>
+        <ProjectGrid projects={topProjects} />
+        <a href="/projects" class="see-all mono" data-reveal>All {projects.length} projects <span class="arrow">→</span></a>
+      </section>
+
+      <section data-reveal>
+        <h2 class="section-label mono"><span class="accent">04</span>/<span data-scramble>Stack</span></h2>
+        <dl class="stack">
+          {stack.map((group) => (
+            <div class="stack-row">
+              <dt class="mono">{group.label}</dt>
+              <dd>{group.items.join(' / ')}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <footer class="footer mono" data-reveal>
+        <span>© {new Date().getFullYear()} Erion Ademi</span>
+        <span>Built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a> · <a href="https://github.com/Erion14/Personal-Website" target="_blank" rel="noopener noreferrer">Source <span class="arrow">↗</span></a></span>
       </footer>
-      
     </div>
   </main>
 </Layout>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('.copy-email');
+  const hint = button?.querySelector<HTMLElement>('.copy-email-hint');
+  let resetTimer: number | undefined;
+
+  button?.addEventListener('click', async () => {
+    const email = button.dataset.email ?? '';
+    try {
+      await navigator.clipboard.writeText(email);
+    } catch {
+      // Clipboard API unavailable (insecure context or denied): open the mail client instead.
+      window.location.href = `mailto:${email}`;
+      return;
+    }
+    if (!hint) return;
+    hint.textContent = '[copied]';
+    button.classList.add('is-copied');
+    clearTimeout(resetTimer);
+    resetTimer = window.setTimeout(() => {
+      hint.textContent = '[copy]';
+      button.classList.remove('is-copied');
+    }, 1600);
+  });
+</script>

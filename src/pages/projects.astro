@@ -1,29 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import MetaBar from '../components/MetaBar.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
 import { projects } from '../data/projects';
 import '../styles/projects.css';
-import homeimage from '../assets/homeimage.png';
 ---
 
 <Layout>
   <main>
     <div class="container">
-      <section class="projects-section">
-        <h2>Projects</h2>
-        <p class="subtitle">Here are some projects that I have worked on.</p>
-        <div class="projects-list">
-          {projects.map(project => (
-            <a href={project.url} class="project-entry" target="_blank" rel="noopener noreferrer">
-              <div class="project-info">
-                <span class="project-name">{project.name}</span>
-                <p class="project-description">{project.description}</p>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
-            <section class="anime-section">
-        <img src={homeimage.src} alt="Favorite Anime" class="anime-image" />
+      <MetaBar />
+      <section class="projects-intro">
+        <h2 class="section-label mono" data-reveal><span class="accent">{String(projects.length).padStart(2, '0')}</span>/<span data-scramble>Projects</span></h2>
+        <p class="subtitle" data-reveal>Things I have built, newest first. Source for all of them is on <a href="https://github.com/Erion14" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+        <ProjectGrid projects={projects} />
       </section>
     </div>
   </main>

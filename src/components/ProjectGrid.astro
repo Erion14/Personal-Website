@@ -1,0 +1,37 @@
+---
+import type { Project } from '../data/projects';
+import '../styles/project-grid.css';
+
+interface Props {
+  projects: Project[];
+}
+
+const { projects } = Astro.props;
+---
+
+<div class="project-grid">
+  {projects.map((project, index) => (
+    <a href={project.url} class="project-cell" target="_blank" rel="noopener noreferrer" data-reveal>
+      <div class="project-meta mono">
+        <span class="project-index">{String(index + 1).padStart(2, '0')}</span>
+        <span>{project.language} · {project.year}</span>
+      </div>
+      <span class="project-name">
+        <span data-scramble>{project.name}</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </span>
+      <p class="project-description">{project.description}</p>
+    </a>
+  ))}
+</div>
+
+<script>
+  // Feeds the pointer position to the dither spotlight mask in project-grid.css.
+  for (const cell of document.querySelectorAll<HTMLElement>('.project-cell')) {
+    cell.addEventListener('pointermove', (event) => {
+      const rect = cell.getBoundingClientRect();
+      cell.style.setProperty('--spotlight-x', `${event.clientX - rect.left}px`);
+      cell.style.setProperty('--spotlight-y', `${event.clientY - rect.top}px`);
+    });
+  }
+</script>

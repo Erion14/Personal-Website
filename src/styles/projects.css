@@ -1,67 +1,18 @@
-main {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-}
-.container {
-  width: 40%;
-  margin: 0 auto;
-}
-h2 {
-  font-size: 1rem;
-  color: #a0a0a0;
-  margin: 2rem 0;
-  font-weight: normal;
+.projects-intro {
+  margin-top: 3rem;
 }
 .subtitle {
+  margin: 0 0 2rem;
   color: #d0d0d0;
-  line-height: 1.6;
-  margin-bottom: 2rem;
+  line-height: 1.7;
 }
-.projects-list .project-entry {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  margin: 0 -1.5rem;
+.subtitle a {
   color: #f0f0f0;
   text-decoration: none;
-  transition: background-color 0.2s ease-in-out;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: border-color 0.3s ease, color 0.3s ease;
 }
-.projects-list .project-entry:hover {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-.project-info .project-name {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 0.25rem;
-}
-.project-info .project-description {
-  color: #a0a0a0;
-  margin: 0;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-  .container {
-    width: 80%;
-  }
-}
-
-.anime-section {
-  margin-top: 2rem;
-  text-align: center;
-  padding: 2rem;
-}
-
-.anime-image {
-  max-width: 80%;
-  height: auto;
-  transition: transform 0.3s ease-out;
-  will-change: transform;
-}
-
-.anime-image:hover {
-  transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease-out;
+.subtitle a:hover {
+  color: #ff4f3f;
+  border-color: #ff4f3f;
 }

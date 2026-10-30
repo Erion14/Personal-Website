@@ -1,0 +1,143 @@
+<canvas class="dot-field" aria-hidden="true"></canvas>
+
+<style>
+  .dot-field {
+    position: absolute;
+    inset: -1rem -3rem;
+    width: calc(100% + 6rem);
+    height: calc(100% + 2rem);
+    z-index: -1;
+    pointer-events: none;
+    /* Fade the grid out toward every edge so it has no hard border. */
+    mask-image: radial-gradient(ellipse 70% 75% at 50% 50%, #000 30%, transparent 100%);
+  }
+
+  @media (max-width: 768px) {
+    .dot-field {
+      inset: -1rem -1rem;
+      width: calc(100% + 2rem);
+    }
+  }
+</style>
+
+<script>
+  const SPACING = 18;
+  const BASE_ALPHA = 0.1;
+  const HOVER_RADIUS = 110;
+  const PUSH = 7;
+  const INTRO_SPEED = 0.9; // px per ms
+  const RIPPLE_SPEED = 0.45; // px per ms
+  const RIPPLE_WIDTH = 40;
+  const RIPPLE_LIFETIME = 1600;
+
+  const canvas = document.querySelector<HTMLCanvasElement>('.dot-field');
+  const host = canvas?.parentElement;
+  const context = canvas?.getContext('2d');
+
+  if (canvas && host && context) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pointer = { x: -9999, y: -9999, strength: 0, target: 0 };
+    const ripples: { x: number; y: number; start: number }[] = [];
+    let width = 0;
+    let height = 0;
+    let introStart = performance.now();
+    let introOrigin = { x: 0, y: 0 };
+    let visible = true;
+
+    const resize = () => {
+      const ratio = Math.min(window.devicePixelRatio, 2);
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
+      introOrigin = { x: width * 0.2, y: height * 0.5 };
+      if (reducedMotion) draw(Infinity);
+    };
+
+    const draw = (now: number) => {
+      context.clearRect(0, 0, width, height);
+      pointer.strength += (pointer.target - pointer.strength) * 0.08;
+
+      for (let y = SPACING / 2; y < height; y += SPACING) {
+        for (let x = SPACING / 2; x < width; x += SPACING) {
+          // Intro: dots switch on in a wave travelling out from behind the name.
+          const introDistance = Math.hypot(x - introOrigin.x, y - introOrigin.y);
+          const intro = Math.min(Math.max((now - introStart - introDistance / INTRO_SPEED) / 400, 0), 1);
+          if (intro === 0) continue;
+
+          let alpha = BASE_ALPHA;
+          let radius = 1;
+          let dx = 0;
+          let dy = 0;
+          let red = 0;
+
+          // Cursor: nearby dots brighten, grow, and part away from the pointer.
+          const px = x - pointer.x;
+          const py = y - pointer.y;
+          const pointerDistance = Math.hypot(px, py);
+          if (pointerDistance < HOVER_RADIUS && pointer.strength > 0.01) {
+            const falloff = (1 - pointerDistance / HOVER_RADIUS) ** 2 * pointer.strength;
+            alpha += falloff * 0.55;
+            radius += falloff * 0.9;
+            dx += (px / (pointerDistance || 1)) * falloff * PUSH;
+            dy += (py / (pointerDistance || 1)) * falloff * PUSH;
+          }
+
+          // Click ripples: an expanding ring that lights dots up in the accent colour.
+          for (const ripple of ripples) {
+            const age = now - ripple.start;
+            const ring = age * RIPPLE_SPEED;
+            const rx = x - ripple.x;
+            const ry = y - ripple.y;
+            const rippleDistance = Math.hypot(rx, ry);
+            const band = 1 - Math.abs(rippleDistance - ring) / RIPPLE_WIDTH;
+            if (band <= 0) continue;
+            const fade = band * (1 - age / RIPPLE_LIFETIME);
+            alpha += fade * 0.6;
+            radius += fade * 0.8;
+            red = Math.max(red, fade);
+            dx += (rx / (rippleDistance || 1)) * fade * 4;
+            dy += (ry / (rippleDistance || 1)) * fade * 4;
+          }
+
+          const r = Math.round(240 + (255 - 240) * red);
+          const g = Math.round(240 + (79 - 240) * red);
+          const b = Math.round(240 + (63 - 240) * red);
+          context.fillStyle = `rgba(${r}, ${g}, ${b}, ${Math.min(alpha, 1) * intro})`;
+          context.beginPath();
+          context.arc(x + dx, y + dy, radius, 0, Math.PI * 2);
+          context.fill();
+        }
+      }
+
+      while (ripples.length && now - ripples[0].start > RIPPLE_LIFETIME) ripples.shift();
+    };
+
+    new ResizeObserver(resize).observe(canvas);
+    resize();
+
+    if (!reducedMotion) {
+      host.addEventListener('pointermove', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        pointer.x = event.clientX - rect.left;
+        pointer.y = event.clientY - rect.top;
+        pointer.target = 1;
+      });
+      host.addEventListener('pointerleave', () => (pointer.target = 0));
+      host.addEventListener('pointerdown', (event) => {
+        const rect = canvas.getBoundingClientRect();
+        ripples.push({ x: event.clientX - rect.left, y: event.clientY - rect.top, start: performance.now() });
+      });
+
+      new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(canvas);
+
+      introStart = performance.now();
+      const tick = (now: number) => {
+        if (visible) draw(now);
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  }
+</script>

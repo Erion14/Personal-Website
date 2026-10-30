@@ -1,0 +1,70 @@
+/* Hairline grid: container draws top/left, each cell draws right/bottom. */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+.project-cell {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.25rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f0f0f0;
+  text-decoration: none;
+}
+/* Ordered-dither dot pattern revealed around the pointer */
+.project-cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.22) 0.8px, transparent 0.8px);
+  background-size: 4px 4px;
+  mask-image: radial-gradient(160px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), #000, transparent 75%);
+  opacity: 0;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-cell:hover::before {
+  opacity: 1;
+}
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.65rem;
+}
+.project-index {
+  transition: color 0.3s ease;
+}
+.project-cell:hover .project-index {
+  color: #ff4f3f;
+}
+.project-name {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+.project-name .arrow {
+  color: #a0a0a0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), color 0.3s ease;
+}
+.project-cell:hover .arrow {
+  color: #f0f0f0;
+}
+.project-description {
+  margin: 0;
+  color: #a0a0a0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+@media (max-width: 768px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+}
