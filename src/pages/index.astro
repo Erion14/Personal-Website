@@ -18,7 +18,7 @@ const email = 'erionn.ademi@gmail.com';
 
       <header class="hero" data-reveal>
         <DotField />
-        <h1 data-scramble>Erion Ademi</h1>
+        <h1>Erion Ademi</h1>
         <p class="hero-role">Software Developer</p>
       </header>
 
@@ -33,7 +33,7 @@ const email = 'erionn.ademi@gmail.com';
       </nav>
 
       <section data-reveal>
-        <h2 class="section-label mono"><span class="accent">01</span>/<span data-scramble>About</span></h2>
+        <h2 class="section-label mono"><span class="accent">01</span>/<span>About</span></h2>
         <div class="about">
           <p>
             I'm a web developer from Prishtina. I build full-stack web apps, mostly with .NET on the backend
@@ -47,7 +47,7 @@ const email = 'erionn.ademi@gmail.com';
       </section>
 
       <section>
-        <h2 class="section-label mono" data-reveal><span class="accent">02</span>/<span data-scramble>Experience</span></h2>
+        <h2 class="section-label mono" data-reveal><span class="accent">02</span>/<span>Experience</span></h2>
         <ol class="timeline">
           {experience.map((job, index) => (
             <li data-reveal>
@@ -74,13 +74,13 @@ const email = 'erionn.ademi@gmail.com';
       </section>
 
       <section>
-        <h2 class="section-label mono" data-reveal><span class="accent">03</span>/<span data-scramble>Projects</span></h2>
+        <h2 class="section-label mono" data-reveal><span class="accent">03</span>/<span>Projects</span></h2>
         <ProjectGrid projects={topProjects} />
         <a href="/projects" class="see-all mono" data-reveal>All {projects.length} projects <span class="arrow">→</span></a>
       </section>
 
       <section data-reveal>
-        <h2 class="section-label mono"><span class="accent">04</span>/<span data-scramble>Stack</span></h2>
+        <h2 class="section-label mono"><span class="accent">04</span>/<span>Stack</span></h2>
         <dl class="stack">
           {stack.map((group) => (
             <div class="stack-row">
